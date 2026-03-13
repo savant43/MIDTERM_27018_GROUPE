@@ -1,0 +1,517 @@
+{
+  "info": {
+    "name": "Hospital Appointment System API",
+    "description": "Postman collection to test CRUD APIs for Location (with parent→child hierarchy), Department, Doctor, Patient, and Appointment.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Locations (Hierarchy from parent to child)",
+      "item": [
+        {
+          "name": "1) Create root hospital (no parent)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Main Hospital\",\n  \"type\": \"HOSPITAL\"\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/locations",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "locations"]
+            }
+          }
+        },
+        {
+          "name": "2) Create wing under hospital (parentLocation.id = 1)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Wing A\",\n  \"type\": \"WING\",\n  \"parentLocation\": { \n    \"id\": 1\n  }\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/locations",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "locations"]
+            }
+          }
+        },
+        {
+          "name": "3) Create floor under wing (parentLocation.id = 2)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Floor 1\",\n  \"type\": \"FLOOR\",\n  \"parentLocation\": { \n    \"id\": 2\n  }\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/locations",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "locations"]
+            }
+          }
+        },
+        {
+          "name": "4) Create room under floor (parentLocation.id = 3)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Room 101\",\n  \"type\": \"ROOM\",\n  \"parentLocation\": { \n    \"id\": 3\n  }\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/locations",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "locations"]
+            }
+          }
+        },
+        {
+          "name": "Get all locations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/locations",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "locations"]
+            }
+          }
+        },
+        {
+          "name": "Get location by id (example id = 1)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/locations/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "locations", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update location (example id = 1)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Main Hospital\",\n  \"type\": \"HOSPITAL\"\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/locations/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "locations", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete location (example id = 4)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/locations/4",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "locations", "4"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Departments (child of Location)",
+      "item": [
+        {
+          "name": "Create department under location (location.id = 1)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Cardiology\",\n  \"location\": { \n    \"id\": 1\n  }\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/departments",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "departments"]
+            }
+          }
+        },
+        {
+          "name": "Get all departments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/departments",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "departments"]
+            }
+          }
+        },
+        {
+          "name": "Get department by id (example id = 1)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/departments/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "departments", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update department (example id = 1)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Cardiology\",\n  \"location\": { \n    \"id\": 1\n  }\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/departments/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "departments", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete department (example id = 1)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/departments/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "departments", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Doctors (child of Department)",
+      "item": [
+        {
+          "name": "Create doctor under department (department.id = 1)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"specialization\": \"Cardiologist\",\n  \"phone\": \"1234567890\",\n  \"email\": \"john.doe@example.com\",\n  \"department\": { \n    \"id\": 1\n  }\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/doctors",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "doctors"]
+            }
+          }
+        },
+        {
+          "name": "Get all doctors",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/doctors",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "doctors"]
+            }
+          }
+        },
+        {
+          "name": "Get doctor by id (example id = 1)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/doctors/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "doctors", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update doctor (example id = 1)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"specialization\": \"Senior Cardiologist\",\n  \"phone\": \"1234567890\",\n  \"email\": \"john.doe@example.com\",\n  \"department\": { \n    \"id\": 1\n  }\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/doctors/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "doctors", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete doctor (example id = 1)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/doctors/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "doctors", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Patients (root for appointments)",
+      "item": [
+        {
+          "name": "Create patient",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Smith\",\n  \"dateOfBirth\": \"1990-01-01\",\n  \"phone\": \"1234567890\",\n  \"email\": \"jane.smith@example.com\",\n  \"address\": \"123 Main St\"\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/patients",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "patients"]
+            }
+          }
+        },
+        {
+          "name": "Get all patients",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/patients",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "patients"]
+            }
+          }
+        },
+        {
+          "name": "Get patient by id (example id = 1)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/patients/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "patients", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update patient (example id = 1)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Smith\",\n  \"dateOfBirth\": \"1990-01-01\",\n  \"phone\": \"9876543210\",\n  \"email\": \"jane.smith@example.com\",\n  \"address\": \"456 Updated St\"\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/patients/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "patients", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete patient (example id = 1)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/patients/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "patients", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Appointments (child of Doctor + Patient)",
+      "item": [
+        {
+          "name": "Create appointment (patient.id = 1, doctor.id = 1)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patient\": { \n    \"id\": 1\n  },\n  \"doctor\": { \n    \"id\": 1\n  },\n  \"appointmentDateTime\": \"2026-03-15T10:00:00\",\n  \"reason\": \"Regular checkup\",\n  \"status\": \"SCHEDULED\"\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/appointments",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "appointments"]
+            }
+          }
+        },
+        {
+          "name": "Get all appointments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/appointments",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "appointments"]
+            }
+          }
+        },
+        {
+          "name": "Get appointment by id (example id = 1)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/appointments/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "appointments", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update appointment (example id = 1)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patient\": { \n    \"id\": 1\n  },\n  \"doctor\": { \n    \"id\": 1\n  },\n  \"appointmentDateTime\": \"2026-03-15T11:00:00\",\n  \"reason\": \"Updated checkup\",\n  \"status\": \"SCHEDULED\"\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/appointments/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "appointments", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete appointment (example id = 1)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/appointments/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "appointments", "1"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
